@@ -548,7 +548,7 @@ const VideogameDetails = () => {
                 <div className=" col-md-6">
                   {videogame.achievements.length === 0 ? (
                     <div className="list-group list-group-flush mt-2">
-                      <div className="alert alert-info mt-4 ms-3">
+                      <div className="alert alert-info mt-2 ms-3">
                         Aún no existen Logros
                       </div>
                     </div>
@@ -556,7 +556,7 @@ const VideogameDetails = () => {
                     <ul className="list-group list-group-flush">
                       {videogame.achievements
                         .sort((a, b) => a.id - b.id)
-                        .map((achievement) => (
+                        .map((achievement, index) => (
                           <li
                             key={achievement.id}
                             className={`list-group-item`}
@@ -576,7 +576,7 @@ const VideogameDetails = () => {
                                 }
                               />
                               <label className="form-check-label">
-                                {achievement.id} - {achievement.name}
+                                {index + 1} - {achievement.name}
                               </label>
                             </div>
                             <label className="form-check-label">
@@ -588,77 +588,85 @@ const VideogameDetails = () => {
                   )}
                 </div>
                 <div className="col-md-6">
-                  <ul className="list-group list-group-flush">
-                    {personalizedAchievements
-                      .sort((a, b) => a.id - b.id)
-                      .map((personalizedAchievements, index) => (
-                        <li
-                          key={personalizedAchievements.id}
-                          className={`list-group-item`}
-                          onClick={() =>
-                            handlePersonalizedAchievementClick(
-                              personalizedAchievements.id
-                            )
-                          }
-                        >
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              checked={selectedPersonalizedAchievements.includes(
+                  {personalizedAchievements.length === 0 ? (
+                    <div className="list-group list-group-flush mt-2">
+                      <div className="alert alert-info mt-2">
+                        Aún no se han creado Logros
+                      </div>
+                    </div>
+                  ) : (
+                    <ul className="list-group list-group-flush">
+                      {personalizedAchievements
+                        .sort((a, b) => a.id - b.id)
+                        .map((personalizedAchievements, index) => (
+                          <li
+                            key={personalizedAchievements.id}
+                            className={`list-group-item`}
+                            onClick={() =>
+                              handlePersonalizedAchievementClick(
                                 personalizedAchievements.id
-                              )}
-                              onChange={() =>
-                                handlePersonalizedAchievementClick(
+                              )
+                            }
+                          >
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                checked={selectedPersonalizedAchievements.includes(
                                   personalizedAchievements.id
-                                )
-                              }
-                            />
+                                )}
+                                onChange={() =>
+                                  handlePersonalizedAchievementClick(
+                                    personalizedAchievements.id
+                                  )
+                                }
+                              />
+                              <label className="form-check-label">
+                                {personalizedAchievements.id} -{" "}
+                                {personalizedAchievements.name}
+                              </label>
+                            </div>
                             <label className="form-check-label">
-                              {personalizedAchievements.id} -{" "}
-                              {personalizedAchievements.name}
+                              {personalizedAchievements.description}
                             </label>
-                          </div>
-                          <label className="form-check-label">
-                            {personalizedAchievements.description}
-                          </label>
-                          <div className="d-flex justify-content-between">
-                            <div>
-                              {personalizedAchievementUsers.length > 0 && (
-                                <div className="user-info created-by small text-muted">
-                                  Creado por:{" "}
-                                  <Link
-                                    to={`/userStatistics/${personalizedAchievementUsers[index].id}`}
-                                    onClick={(event) => {
-                                      event.stopPropagation();
-                                    }}
-                                  >
-                                    {personalizedAchievementUsers[index].name}
-                                  </Link>
-                                </div>
-                              )}
+                            <div className="d-flex justify-content-between">
+                              <div>
+                                {personalizedAchievementUsers.length > 0 && (
+                                  <div className="user-info created-by small text-muted">
+                                    Creado por:{" "}
+                                    <Link
+                                      to={`/userStatistics/${personalizedAchievementUsers[index].id}`}
+                                      onClick={(event) => {
+                                        event.stopPropagation();
+                                      }}
+                                    >
+                                      {personalizedAchievementUsers[index].name}
+                                    </Link>
+                                  </div>
+                                )}
+                              </div>
+                              <div>
+                                <button
+                                  className={`btn btn-primary btn-sm ${
+                                    isLiked[personalizedAchievements.id]
+                                      ? "liked"
+                                      : ""
+                                  }`}
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+                                    handleLike(personalizedAchievements.id);
+                                  }}
+                                >
+                                  {isLiked[personalizedAchievements.id]
+                                    ? "No Me gusta"
+                                    : "Me gusta"}
+                                </button>
+                              </div>
                             </div>
-                            <div>
-                              <button
-                                className={`btn btn-primary btn-sm ${
-                                  isLiked[personalizedAchievements.id]
-                                    ? "liked"
-                                    : ""
-                                }`}
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  handleLike(personalizedAchievements.id);
-                                }}
-                              >
-                                {isLiked[personalizedAchievements.id]
-                                  ? "No Me gusta"
-                                  : "Me gusta"}
-                              </button>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                  </ul>
+                          </li>
+                        ))}
+                    </ul>
+                  )}
                 </div>
               </div>
             </div>
