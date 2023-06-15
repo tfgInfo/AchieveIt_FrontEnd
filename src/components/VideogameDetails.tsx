@@ -622,8 +622,7 @@ const VideogameDetails = () => {
                                 }
                               />
                               <label className="form-check-label">
-                                {personalizedAchievements.id} -{" "}
-                                {personalizedAchievements.name}
+                                {index + 1} - {personalizedAchievements.name}
                               </label>
                             </div>
                             <label className="form-check-label">

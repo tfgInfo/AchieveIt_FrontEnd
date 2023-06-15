@@ -205,14 +205,16 @@ const UserStatistics = () => {
                             <h4 className="mt-2">Nombre: {achievement.name}</h4>
                             <h4>Descripción: {achievement.description}</h4>
                           </div>
-                          <div className="col-md-6 text-end">
-                            <Link
-                              to={`/modificar-logro/${achievement.id}`}
-                              className="btn btn-primary"
-                            >
-                              Modificar
-                            </Link>
-                          </div>
+                          {!urlUserId && (
+                            <div className="col-md-6 text-end">
+                              <Link
+                                to={`/modificar-logro/${achievement.id}`}
+                                className="btn btn-primary"
+                              >
+                                Modificar
+                              </Link>
+                            </div>
+                          )}
                         </div>
                         <span className="badge bg-primary float-end">
                           Likes: {achievement.likesNum}
