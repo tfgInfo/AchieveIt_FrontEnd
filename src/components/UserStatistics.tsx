@@ -229,7 +229,7 @@ const UserStatistics = () => {
         )
       ) : (
         <div className="alert alert-info mt-4">
-          No has añadido juegos a tu lista todavía
+          No has marcado logros completados todavía
         </div>
       )}
     </div>
